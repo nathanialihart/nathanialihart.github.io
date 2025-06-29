@@ -3,21 +3,16 @@
     darkMode = JSON.parse(localStorage.getItem('darkMode') ?? 'true');
     $watch('darkMode', value => {
         localStorage.setItem('darkMode', JSON.stringify(value));
-        if (value) {
-            document.documentElement.classList.add('dark');
-            document.documentElement.classList.remove('light');
-        } else {
-            document.documentElement.classList.add('light');
-            document.documentElement.classList.remove('dark');
-        }
+        document.documentElement.classList.toggle('dark', value);
+        document.documentElement.classList.toggle('light', !value);
     });
-    if (darkMode) {
-        document.documentElement.classList.add('dark');
-    } else {
-        document.documentElement.classList.add('light');
-    }
-    window.addEventListener('load', () => { loading = false; });
-" class="scroll-smooth">
+    document.documentElement.classList.add(darkMode ? 'dark' : 'light');
+    window.addEventListener('load', () => loading = false);
+    setInterval(() => {
+        let section = document.getElementById('anime-section');
+        section.innerHTML = '<p class=\\\"text-center my-4\\\">No anime’s detected.</p>';
+    }, 60000);
+" class="scroll-smooth dark">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -28,211 +23,129 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: white;
+            background: white;
             color: black;
-            transition: background-color 0.8s, color 0.8s;
+            transition: background 0.8s, color 0.8s;
         }
         .dark body {
-            background-color: black;
-            color: white;
-        }
-        .fade-in-slide-up {
-            opacity: 0;
-            transform: translateY(30px);
-            animation-fill-mode: forwards;
-            animation-name: fadeSlideUp;
-            animation-duration: 1.5s;
-            animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        .fade-in-slide-up.delay-1 { animation-delay: 0.35s; }
-        .fade-in-slide-up.delay-2 { animation-delay: 0.7s; }
-        .fade-in-slide-up.delay-3 { animation-delay: 1.05s; }
-        @keyframes fadeSlideUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
-        button {
-            transition: background-color 0.4s, box-shadow 0.4s, transform 0.25s;
-            font-weight: 700;
-            padding: 0.75rem 1.5rem;
-            border-radius: 2rem;
-            position: relative;
-            overflow: hidden;
-            background-color: black;
-            color: white;
-            width: 60px;
-            height: 30px;
-        }
-        .dark button {
-            background-color: white;
-            color: black;
-        }
-        button::before {
-            content: "";
-            position: absolute;
-            width: 24px;
-            height: 24px;
-            background: white;
-            border-radius: 50%;
-            top: 3px;
-            left: 3px;
-            transition: background 0.3s, transform 0.3s;
-        }
-        .dark button::before {
             background: black;
-            transform: translateX(30px);
-        }
-        button:hover { transform: scale(1.05); }
-        ::-webkit-scrollbar { width: 14px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #555; border-radius: 7px; transition: background 0.3s; }
-        .dark ::-webkit-scrollbar-thumb { background: #bbb; }
-        nav {
-            backdrop-filter: saturate(200%) blur(16px);
-            -webkit-backdrop-filter: saturate(200%) blur(16px);
-            background: rgba(255,255,255,0.75);
-            color: black;
-            padding: 1.5rem 2.5rem;
-            border-radius: 0 0 2rem 2rem;
-        }
-        .dark nav {
-            background: rgba(0,0,0,0.85);
             color: white;
         }
         h1 {
             font-weight: 900;
             font-size: 2.25rem;
             letter-spacing: 0.05em;
+            text-align: center;
             user-select: none;
+            text-shadow: 0 0 8px currentColor;
+            animation: glow 2s ease-in-out infinite alternate;
         }
-        .favorite-games {
-            background: black;
-            color: white;
-            box-shadow: 0 25px 40px rgba(0,0,0,0.8);
-            padding: 3rem 3.5rem;
-            margin: 5rem auto;
-            max-width: 56rem;
-            border-radius: 2rem;
+        @keyframes glow {
+            from { text-shadow: 0 0 8px currentColor; }
+            to   { text-shadow: 0 0 20px currentColor; }
         }
-        .dark .favorite-games {
-            background: white;
-            color: black;
-            box-shadow: 0 25px 40px rgba(220,220,220,0.7);
+        button {
+            width:60px; height:30px; border:none;
+            border-radius:15px; position:relative;
+            background:black; color:white;
+            cursor:pointer; padding:0;
         }
-        .favorite-games:hover { transform: scale(1.05); }
-        .favorite-games h3 {
-            font-size: 3.25rem;
-            font-weight: 900;
-            margin-bottom: 1.75rem;
-            text-align: center;
+        .dark button { background:white; color:black; }
+        button::before {
+            content:""; position:absolute;
+            width:24px;height:24px;
+            background:white; border-radius:50%;
+            top:3px; left:3px;
+            transition: transform 0.3s, background 0.3s;
         }
-        .favorite-games p {
-            font-size: 1.4rem;
-            max-width: 44rem;
-            margin: 0 auto 2.5rem auto;
-            text-align: center;
-        }
-        .favorite-games span { font-weight: 700; }
-        .favorite-games a.button {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            border-radius: 3rem;
-            font-weight: 900;
-            font-size: 1.25rem;
-            color: white;
-            background: black;
-            text-decoration: none;
-            border: 3px solid white;
-            transition: background 0.4s, transform 0.3s;
-        }
-        .favorite-games a.button:hover {
-            background: #222;
-            transform: scale(1.1);
-        }
-        .dark .favorite-games a.button {
-            background: white;
-            color: black;
-            border: 3px solid black;
-        }
-        .dark .favorite-games a.button:hover {
-            background: #ddd;
-        }
-        section.contact a {
-            color: #4f46e5;
+        .dark button::before {
+            background:black;
+            transform: translateX(30px);
         }
         #loader {
-            position: fixed;
-            inset: 0;
-            background: black;
-            z-index: 50;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.8s ease;
+            position:fixed; inset:0; background:black;
+            display:flex; align-items:center; justify-content:center;
+            z-index:50; transition:opacity 0.8s;
         }
-        #loader.fade-out {
-            opacity: 0;
-            pointer-events: none;
+        #loader.fade-out { opacity:0; pointer-events:none; }
+        .fade-in-slide-up {
+            opacity:0; transform:translateY(30px);
+            animation: fadeSlideUp 1.5s cubic-bezier(.25,.46,.45,.94) forwards;
         }
+        .fade-in-slide-up.delay-1 { animation-delay:0.35s }
+        .fade-in-slide-up.delay-2 { animation-delay:0.7s }
+        .fade-in-slide-up.delay-3 { animation-delay:1.05s }
+        @keyframes fadeSlideUp {
+            to { opacity:1; transform:translateY(0); }
+        }
+        ::-webkit-scrollbar { width:14px; }
+        ::-webkit-scrollbar-thumb {
+            background: #555; border-radius:7px; transition:background .3s;
+        }
+        .dark ::-webkit-scrollbar-thumb { background:#bbb; }
+        nav {
+            backdrop-filter: saturate(200%) blur(16px);
+            background: rgba(255,255,255,0.75);
+            padding:1.5rem; border-radius:0 0 2rem 2rem;
+        }
+        .dark nav { background:rgba(0,0,0,0.85); }
+        section {
+            border-radius:2rem; margin:2rem auto; max-width:56rem;
+        }
+        .favorite-games {
+            background:black; color:white; padding:3rem;
+            box-shadow:0 25px 40px rgba(0,0,0,.8);
+            transition:transform .3s;
+        }
+        .dark .favorite-games { background:white; color:black; box-shadow:0 25px 40px rgba(220,220,220,.7); }
+        .favorite-games:hover { transform:scale(1.05); }
+        .favorite-games img {
+            max-width:200px; border-radius:1rem; margin:1rem;
+        }
+        section.contact a { color:#4f46e5; text-decoration:underline; }
     </style>
 </head>
 <body>
     <div id="loader" x-bind:class="!loading ? 'fade-out' : ''"></div>
 
-    <nav class="flex justify-between items-center max-w-5xl mx-auto sticky top-0 z-40 shadow-md">
+    <nav class="flex justify-between items-center max-w-5xl mx-auto sticky top-0">
         <h1>nathanialihart</h1>
         <button @click="darkMode = !darkMode" aria-label="Toggle light and dark mode"></button>
     </nav>
 
-    <section class="text-center py-28 px-6 max-w-3xl mx-auto fade-in-slide-up delay-1 select-none">
-        <h2 class="text-6xl md:text-7xl font-extrabold mb-5">
-            Hi, I'm Nathanial
-        </h2>
-        <p class="text-2xl md:text-3xl max-w-xl mx-auto leading-relaxed">
+    <section class="text-center py-16 fade-in-slide-up delay-1">
+        <h2 class="text-6xl font-extrabold mb-5">Hi, I'm Nathanial</h2>
+        <p class="text-2xl max-w-xl mx-auto">
             I'm a passionate learner who's currently pursuing the difficult path of computer engineering
         </p>
     </section>
 
     <section class="favorite-games fade-in-slide-up delay-2 select-none">
-        <h3>Favorite games</h3>
-        <p>
-            I like <span>TDS on roblox</span> — it’s a grindy ass tower defense game that I"ve been playing for like 5 years
-        </p>
-        <div class="text-center mb-8">
-            <a href="https://www.roblox.com/games/4662002670/Tower-Defense-Simulator" target="_blank" rel="noopener noreferrer" class="button">
-                Play TDS on roblox
-            </a>
-        </div>
-        <p>
-            I also like <span>Clash Royale</span> — a shitty card game with gay cards and p2w players that make me want to slice my dick off
-        </p>
-        <div class="text-center">
-            <a href="https://clashroyale.com/" target="_blank" rel="noopener noreferrer" class="button">
-                Play Clash Royale
-            </a>
+        <h3 class="text-4xl font-extrabold mb-6 text-center">Favorite games</h3>
+        <div class="flex flex-col items-center">
+            <div class="flex items-center">
+                <img src="data:image/png;base64,<!-- base64 of turn0image3 -->" alt="TDS" />
+                <a href="https://www.roblox.com/games/4662002670/Tower-Defense-Simulator" class="button mb-4">Play TDS on roblox</a>
+            </div>
+            <div class="flex items-center">
+                <img src="data:image/png;base64,<!-- base64 of turn0image10 -->" alt="Clash Royale" />
+                <a href="https://clashroyale.com/" class="button">Play Clash Royale</a>
+            </div>
         </div>
     </section>
 
-    <section class="contact text-center py-20 px-8 max-w-2xl mx-auto fade-in-slide-up delay-3 select-none">
-        <h3 class="text-4xl font-extrabold mb-8">
-            Contact Me
-        </h3>
+    <section id="anime-section" class="text-center py-16 fade-in-slide-up delay-3">
+        <h3 class="text-4xl font-extrabold mb-4">Currently Watching</h3>
+        <p class="text-center my-4">No anime’s detected.</p>
+    </section>
+
+    <section class="contact text-center py-16 fade-in-slide-up delay-3">
+        <h3 class="text-4xl font-extrabold mb-8">Contact Me</h3>
         <p class="mb-5 text-xl">WIP</p>
-        <p class="mb-2">
-            email:
-            <a href="mailto:nathanialihart100@gmail.com">
-                nathanialihart100@gmail.com
-            </a>
-        </p>
-        <p>
-            github:
-            <a href="https://github.com/nathanialihart" target="_blank" rel="noopener noreferrer">
-                @nathanialihart
-            </a>
-        </p>
+        <p class="mb-2">email: <a href="mailto:nathanialihart100@gmail.com">nathanialihart100@gmail.com</a></p>
+        <p>github: <a href="https://github.com/nathanialihart" target="_blank" rel="noopener noreferrer">@nathanialihart</a></p>
     </section>
 
-    <footer class="text-center text-sm p-8 text-gray-500 dark:text-gray-400 select-none">
-        Built with <span class="font-semibold text-indigo-400">Tailwind CSS</span> & <span class="font-semibold text-purple-400">Alpine.js</span>
-    </footer>
+    <footer class="text-center text-sm p-8 select-none">Built with <span class="font-semibold">Tailwind CSS</span> & <span class="font-semibold">Alpine.js</span></footer>
 </body>
 </html>
