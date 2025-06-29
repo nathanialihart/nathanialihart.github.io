@@ -2,55 +2,120 @@
 <html lang="en" x-data="{ darkMode: false }" x-init="
     darkMode = JSON.parse(localStorage.getItem('darkMode') ?? 'false');
     $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))
-" :class="{ 'dark': darkMode }">
+" :class="{ 'dark': darkMode }" class="scroll-smooth">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>nathanialihart</title>
+    <title>Nathanial Hart</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-image: radial-gradient(circle at 30% 30%, #6366f1 15%, transparent 70%), radial-gradient(circle at 70% 70%, #8b5cf6 15%, transparent 70%);
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-size: 600px 600px;
+        }
+        .dark body {
+            background-image: radial-gradient(circle at 30% 30%, #4338ca 15%, transparent 70%), radial-gradient(circle at 70% 70%, #7c3aed 15%, transparent 70%);
+        }
+        /* Fade-in animation */
+        .fade-in {
+            animation: fadeIn 1.2s ease forwards;
+            opacity: 0;
+        }
+        .fade-in.delay-1 {
+            animation-delay: 0.3s;
+        }
+        .fade-in.delay-2 {
+            animation-delay: 0.6s;
+        }
+        .fade-in.delay-3 {
+            animation-delay: 0.9s;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        /* Hover lift */
+        .hover-lift:hover {
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 12px 24px rgba(99,102,241,0.4);
+        }
+        /* Smooth button transitions */
+        button, a.button {
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+        }
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #6366f1;
+            border-radius: 4px;
+        }
+    </style>
 </head>
-<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans transition-colors duration-300">
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-500">
 
     <!-- Navbar -->
-    <nav class="flex justify-between items-center p-4 max-w-4xl mx-auto">
-        <h1 class="text-xl font-bold">nathanialihart</h1>
-        <button @click="darkMode = !darkMode" class="px-3 py-1 rounded bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+    <nav class="flex justify-between items-center p-6 max-w-5xl mx-auto sticky top-0 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md z-30 shadow-sm">
+        <h1 class="text-2xl font-extrabold text-transparent bg-gradient-to-r from-indigo-500 to-purple-600 bg-clip-text select-none">Nathanial Hart</h1>
+        <button @click="darkMode = !darkMode" class="px-4 py-2 rounded-lg bg-indigo-500 hover:bg-indigo-600 active:scale-95 text-white shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 transition">
             Toggle Dark Mode
         </button>
     </nav>
 
     <!-- Hero Section -->
-    <section class="text-center py-16 px-4 max-w-2xl mx-auto">
-        <h2 class="text-4xl font-bold mb-4">Hi, I'm Nathanial</h2>
-        <p class="text-lg">I'm a passionate learner who's currently pursuing the difficult path of computer engineering</p>
+    <section class="text-center py-24 px-6 max-w-3xl mx-auto fade-in delay-1">
+        <h2 class="text-5xl md:text-6xl font-extrabold mb-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-transparent bg-clip-text">
+            Hi, I'm Nathanial
+        </h2>
+        <p class="text-xl md:text-2xl max-w-xl mx-auto leading-relaxed text-gray-700 dark:text-gray-300">
+            I'm a passionate learner who's currently pursuing the difficult path of computer engineering
+        </p>
     </section>
 
-    <!-- Projects Section -->
-    <section class="max-w-4xl mx-auto py-12 px-4">
-        <h3 class="text-2xl font-bold mb-6 text-center">Projects</h3>
-        <div class="grid gap-6 md:grid-cols-2">
-            <!-- Example Project Card -->
-            <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded shadow hover:shadow-lg transition">
-                <h4 class="text-xl font-semibold mb-2">WIP</h4>
-                <p class="mb-2">WIP</p>
-                <a href="WIP" class="text-blue-600 dark:text-blue-400 hover:underline">View on GitHub →</a>
-            </div>
-            <!-- Add more project cards below as needed -->
+    <!-- Favorite Game Section -->
+    <section class="max-w-4xl mx-auto bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl p-10 my-16 text-white shadow-lg hover:shadow-xl transition hover:scale-[1.03] fade-in delay-2">
+        <h3 class="text-3xl font-bold mb-4 text-center">My Favorite Game</h3>
+        <p class="text-center mb-6 text-lg md:text-xl max-w-xl mx-auto">
+            I like <span class="font-semibold underline decoration-pink-400 decoration-2 underline-offset-4">TDS on roblox</span> — it’s a grindy ass tower defense game that I"ve been playing for 5 years
+        </p>
+        <div class="text-center">
+            <a href="https://www.roblox.com/games/4662002670/Tower-Defense-Simulator" target="_blank" rel="noopener noreferrer" 
+               class="inline-block px-8 py-3 rounded-full bg-pink-400 hover:bg-pink-500 active:scale-95 shadow-md shadow-pink-400/50 text-white font-semibold transition">
+                Play TDS on roblox →
+            </a>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section class="text-center py-12 px-4 max-w-2xl mx-auto">
-        <h3 class="text-2xl font-bold mb-4">Contact</h3>
-        <p class="mb-2">You can reach me via:</p>
-        <p>Email: <a href="mailto:nathanialihart100@gmail.com" class="text-blue-600 dark:text-blue-400 hover:underline">nathanialihart100@gmail.com</a></p>
-        <p>GitHub: <a href="https://github.com/nathanialihart" class="text-blue-600 dark:text-blue-400 hover:underline">nathanialihart</a></p>
+    <section class="text-center py-16 px-6 max-w-2xl mx-auto fade-in delay-3">
+        <h3 class="text-3xl font-bold mb-6">Contact Me</h3>
+        <p class="mb-3 text-lg">WIP</p>
+        <p class="mb-1">
+            Email: 
+            <a href="mailto:nathanialihart100@gmail.com" class="text-indigo-400 hover:text-indigo-600 underline transition">
+                nathanialihart100@gmail.com
+            </a>
+        </p>
+        <p>
+            GitHub: 
+            <a href="https://github.com/nathanialihart" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:text-indigo-600 underline transition">
+                @nathanialihart
+            </a>
+        </p>
     </section>
 
     <!-- Footer -->
-    <footer class="text-center text-sm p-4 text-gray-500 dark:text-gray-400">
-        Built with Tailwind & Alpine.js
+    <footer class="text-center text-sm p-6 text-gray-500 dark:text-gray-400 select-none">
+        Built with <span class="font-semibold text-indigo-600 dark:text-indigo-400">Tailwind CSS</span> &amp; <span class="font-semibold text-purple-600 dark:text-purple-400">Alpine.js
     </footer>
+
 </body>
 </html>
