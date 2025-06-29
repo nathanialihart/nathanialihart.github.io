@@ -21,77 +21,187 @@
     }
 " class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>nathanialihart</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; transition: background 0.8s, color 0.8s; }
-        .dark body { background: black; color: white; }
-        #loader { position: fixed; inset: 0; background: black; display: flex; align-items: center; justify-content: center; z-index: 50; transition: opacity 0.8s; }
-        .fade-out { opacity: 0; pointer-events: none; }
-        h1 { font-weight: 900; font-size: 2.25rem; text-align: center; animation: glow 2s ease-in-out infinite alternate; color: white; }
-        .light h1 { color: black; }
-        @keyframes glow { from { text-shadow: 0 0 6px currentColor; } to { text-shadow: 0 0 12px currentColor; } }
-        .button { display: inline-block; padding: 0.75rem 2rem; border-radius: 9999px; font-weight: 700; font-size: 1.2rem; color: white; background: black; border: 2px solid white; transition: transform 0.2s, box-shadow 0.2s; }
-        .dark .button { color: black; background: white; border: 2px solid black; }
-        .button:hover { transform: scale(1.07); box-shadow: 0 0 12px currentColor; }
-        .button:not(:hover) { transform: scale(0.98); }
-    </style>
-    <script>
-        function openClashRoyale() {
-            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-            if (/android/i.test(userAgent)) {
-                window.open("https://play.google.com/store/apps/details?id=com.supercell.clashroyale", "_blank");
-            } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-                window.open("https://apps.apple.com/app/clash-royale/id1053012308", "_blank");
-            } else {
-                window.open("https://clashroyale.com", "_blank");
-            }
-        }
-    </script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>nathanialihart</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+<style>
+body {
+    font-family: 'Inter', sans-serif;
+    background: white;
+    color: black;
+    transition: background 0.8s, color 0.8s;
+}
+.dark body { background: black; color: white; }
+#loader {
+    position: fixed; inset: 0; background: black;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 50; transition: opacity 0.8s;
+}
+.fade-out { opacity: 0; pointer-events: none; }
+nav {
+    backdrop-filter: blur(2px); /* lighter blur */
+    -webkit-backdrop-filter: blur(2px);
+    background-color: rgba(255, 255, 255, 0.3); /* light transparent bg for light mode */
+}
+.dark nav {
+    background-color: rgba(0, 0, 0, 0.3); /* light transparent bg for dark mode */
+}
+h1 {
+    font-weight: 900;
+    font-size: 2.25rem;
+    text-align: center;
+    animation: glow 2s ease-in-out infinite alternate;
+    color: white;
+    filter: drop-shadow(0 0 4px white);
+}
+.light h1 {
+    color: black;
+    filter: drop-shadow(0 0 4px black);
+}
+@keyframes glow {
+    from { text-shadow: 0 0 4px currentColor; }
+    to { text-shadow: 0 0 10px currentColor; }
+}
+button.toggle {
+    width: 60px;
+    height: 30px;
+    border: none;
+    border-radius: 15px;
+    position: relative;
+    background: black;
+    color: white;
+    box-shadow: 0 0 6px white;
+    cursor: pointer;
+}
+.dark button.toggle {
+    background: white;
+    color: black;
+    box-shadow: 0 0 6px black;
+}
+button.toggle::before {
+    content: "";
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background: white;
+    border-radius: 50%;
+    top: 3px;
+    left: 3px;
+    transition: transform 0.3s;
+}
+.dark button.toggle::before {
+    background: black;
+    transform: translateX(30px);
+}
+.favorite-games {
+    background: black;
+    color: white;
+    padding: 2rem;
+    border-radius: 2rem;
+    text-align: center;
+}
+.dark .favorite-games {
+    background: white;
+    color: black;
+}
+.favorite-games img {
+    max-width: 250px;
+    border-radius: 1rem;
+    margin: 1rem auto;
+    box-shadow: 0 0 10px rgba(255,255,255,0.15);
+}
+.fade-in-slide-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeSlideUp 1.5s forwards cubic-bezier(.25,.46,.45,.94);
+}
+.delay-1 { animation-delay: 0.35s; }
+.delay-2 { animation-delay: 0.7s; }
+.delay-3 { animation-delay: 1.05s; }
+@keyframes fadeSlideUp {
+    to { opacity: 1; transform: translateY(0); }
+}
+a.button {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border: 2px solid currentColor;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+a.button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px currentColor;
+}
+.gitHubIcon {
+    width: 28px;
+    height: 28px;
+    fill: currentColor;
+    vertical-align: middle;
+    margin-left: 0.5rem;
+}
+</style>
 </head>
 <body>
 
 <div id="loader" x-show="loading" x-transition.opacity></div>
 
-<nav class="flex justify-between items-center max-w-5xl mx-auto sticky top-0 z-40 p-6 backdrop-blur-md bg-white/20 dark:bg-black/20 rounded-b-xl">
+<nav class="flex justify-between items-center max-w-5xl mx-auto sticky top-0 z-40 p-6">
     <h1>nathanialihart</h1>
-    <button class="w-14 h-7 rounded-full relative bg-black dark:bg-white" @click="darkMode = !darkMode" aria-label="Toggle light/dark mode">
-        <div class="absolute top-0.5 left-0.5 w-6 h-6 rounded-full bg-white dark:bg-black transition-transform" :class="darkMode ? 'translate-x-7' : ''"></div>
-    </button>
+    <div class="flex items-center">
+        <button class="toggle" @click="darkMode = !darkMode" aria-label="Toggle light and dark mode"></button>
+        <a href="https://github.com/nathanialihart" target="_blank" rel="noopener noreferrer" class="ml-4" aria-label="GitHub Profile">
+            <svg class="gitHubIcon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.603-3.369-1.343-3.369-1.343-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.004.07 1.532 1.032 1.532 1.032.893 1.53 2.341 1.088 2.91.832.091-.647.35-1.088.636-1.339-2.22-.253-4.555-1.11-4.555-4.941 0-1.09.39-1.982 1.029-2.68-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025a9.564 9.564 0 0 1 2.5-.337c.85.004 1.705.115 2.5.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.698 1.028 1.59 1.028 2.68 0 3.842-2.337 4.685-4.565 4.932.36.31.682.92.682 1.855 0 1.337-.012 2.417-.012 2.747 0 .268.18.58.688.481A10.013 10.013 0 0 0 22 12c0-5.523-4.477-10-10-10z"/>
+            </svg>
+        </a>
+    </div>
 </nav>
 
-<section class="text-center py-28 px-6 max-w-3xl mx-auto">
-    <h2 class="text-5xl md:text-6xl font-extrabold mb-6">Hi, I'm Nathanial, better known as Mango</h2>
-    <p class="text-xl md:text-2xl max-w-xl mx-auto leading-relaxed">I'm a passionate learner currently pursuing the difficult path of computer engineering</p>
+<section class="text-center py-28 px-6 max-w-3xl mx-auto fade-in-slide-up delay-1 select-none">
+    <h2 class="text-6xl md:text-7xl font-extrabold mb-5">
+        Hi, I'm Nathanial, better known as Mango
+    </h2>
+    <p class="text-2xl md:text-3xl max-w-xl mx-auto leading-relaxed">
+        I'm a passionate learner who's currently pursuing the difficult path of computer engineering
+    </p>
 </section>
 
-<section class="text-center bg-black text-white dark:bg-white dark:text-black py-16 px-6 rounded-3xl max-w-3xl mx-auto">
+<section class="favorite-games fade-in-slide-up delay-2 select-none">
     <h3 class="text-4xl font-extrabold mb-8">Favorite games</h3>
-    <div class="mb-12">
-        <img src="https://cdn.discordapp.com/attachments/1247891135437955124/1256046498017495111/tds_thumbnail.png" alt="TDS" class="mx-auto rounded-xl shadow-lg max-w-xs mb-4">
-        <p class="mb-4">I like <strong>TDS on Roblox</strong> — it’s a grindy tower defense game I've played for 5 years</p>
-        <a href="https://www.roblox.com/games/4662002670/Tower-Defense-Simulator" target="_blank" rel="noopener noreferrer" class="button">Play TDS on Roblox</a>
+    <img src="https://cdn.discordapp.com/attachments/1247891135437955124/1256046498017495111/tds_thumbnail.png" alt="TDS" />
+    <p>
+        I like <span>TDS on Roblox</span> — it’s a grindy ass tower defense game that I've been playing for like 5 years
+    </p>
+    <div class="text-center mb-8">
+        <a href="https://www.roblox.com/games/4662002670/Tower-Defense-Simulator" target="_blank" rel="noopener noreferrer" class="button">
+            Play TDS on Roblox
+        </a>
     </div>
-    <div>
-        <img src="https://cdn.discordapp.com/attachments/1247891135437955124/1256046498386817034/clash_royale_thumbnail.png" alt="Clash Royale" class="mx-auto rounded-xl shadow-lg max-w-xs mb-4">
-        <p class="mb-4">I also like <strong>Clash Royale</strong> — a shitty game with p2w players and broken cards.. yet i still play it</p>
-        <button onclick="openClashRoyale()" class="button">Play Clash Royale</button>
+    <img src="https://cdn.discordapp.com/attachments/1247891135437955124/1256046498386817034/clash_royale_thumbnail.png" alt="Clash Royale" />
+    <p>
+        I also like <span>Clash Royale</span> — a shitty card game with p2w players that make me want to slice my dick off
+    </p>
+    <div class="text-center">
+        <a href="https://clashroyale.com/" target="_blank" rel="noopener noreferrer" class="button">
+            Play Clash Royale
+        </a>
     </div>
 </section>
 
-<section id="anime-section" class="text-center py-20 px-6 max-w-4xl mx-auto">
+<section id="anime-section" class="fade-in-slide-up delay-3 select-none text-center py-20 px-6 max-w-4xl mx-auto">
     <h3 class="text-4xl font-extrabold mb-8">Currently Watching</h3>
     <template x-if="animeList.length === 0">
-        <p>No anime detected.</p>
+        <p>No anime’s detected.</p>
     </template>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 justify-center" x-show="animeList.length > 0">
         <template x-for="anime in animeList" :key="anime.id">
             <div class="flex flex-col items-center">
-                <img :src="anime.cover" :alt="anime.title" class="rounded-lg w-48 h-72 object-cover">
+                <img :src="anime.cover" :alt="anime.title" class="rounded-lg w-48 h-72 object-cover" />
                 <p class="mt-2 text-lg font-bold" x-text="anime.title"></p>
             </div>
         </template>
@@ -99,7 +209,7 @@
 </section>
 
 <footer class="text-center text-sm p-8 text-gray-500 dark:text-gray-400 select-none">
-    Built with <span class="font-semibold text-indigo-400">Tailwind CSS</span> & <span class="font-semibold text-purple-400">Alpine.js</span>
+    Built with <span class="font-semibold text-indigo-400">Tailwind CSS</span> &amp; <span class="font-semibold text-purple-400">Alpine.js</span>
 </footer>
 
 </body>
