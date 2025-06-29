@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" x-data="{ darkMode: true }" x-init="
+<html lang="en" x-data="{ darkMode: true, loading: true }" x-init="
     darkMode = JSON.parse(localStorage.getItem('darkMode') ?? 'true');
     $watch('darkMode', value => {
         localStorage.setItem('darkMode', JSON.stringify(value));
@@ -16,6 +16,7 @@
     } else {
         document.documentElement.classList.add('light');
     }
+    window.addEventListener('load', () => { loading = false; });
 " class="scroll-smooth">
 <head>
     <meta charset="UTF-8" />
@@ -58,6 +59,8 @@
             overflow: hidden;
             background-color: black;
             color: white;
+            width: 60px;
+            height: 30px;
         }
         .dark button {
             background-color: white;
@@ -66,18 +69,17 @@
         button::before {
             content: "";
             position: absolute;
-            width: 16px;
-            height: 16px;
+            width: 24px;
+            height: 24px;
             background: white;
             border-radius: 50%;
-            top: 50%;
-            left: 0.75rem;
-            transform: translateY(-50%);
+            top: 3px;
+            left: 3px;
             transition: background 0.3s, transform 0.3s;
         }
         .dark button::before {
             background: black;
-            transform: translateY(-50%) translateX(1.75rem);
+            transform: translateX(30px);
         }
         button:hover { transform: scale(1.05); }
         ::-webkit-scrollbar { width: 14px; }
@@ -156,17 +158,29 @@
         }
         section.contact a {
             color: #4f46e5;
-            text-decoration: underline;
+        }
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: black;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease;
+        }
+        #loader.fade-out {
+            opacity: 0;
+            pointer-events: none;
         }
     </style>
 </head>
 <body>
+    <div id="loader" x-bind:class="!loading ? 'fade-out' : ''"></div>
+
     <nav class="flex justify-between items-center max-w-5xl mx-auto sticky top-0 z-40 shadow-md">
         <h1>nathanialihart</h1>
-        <button @click="darkMode = !darkMode" aria-label="Toggle light and dark mode">
-            <template x-if="darkMode">Light Mode</template>
-            <template x-if="!darkMode">Dark Mode</template>
-        </button>
+        <button @click="darkMode = !darkMode" aria-label="Toggle light and dark mode"></button>
     </nav>
 
     <section class="text-center py-28 px-6 max-w-3xl mx-auto fade-in-slide-up delay-1 select-none">
