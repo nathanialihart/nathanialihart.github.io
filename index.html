@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" x-data="{ darkMode: true, loading: true }" x-init="
+<html lang="en" x-data="{ darkMode: true, loading: true, animeList: [] }" x-init="
     darkMode = JSON.parse(localStorage.getItem('darkMode') ?? 'true');
     $watch('darkMode', value => {
         localStorage.setItem('darkMode', JSON.stringify(value));
@@ -7,19 +7,26 @@
         document.documentElement.classList.toggle('light', !value);
     });
     document.documentElement.classList.add(darkMode ? 'dark' : 'light');
+    fetchAnime();
+    setInterval(fetchAnime, 60000);
     window.addEventListener('load', () => loading = false);
-    setInterval(() => {
-        let section = document.getElementById('anime-section');
-        section.innerHTML = '<p class=\\\"text-center my-4\\\">No anime’s detected.</p>';
-    }, 60000);
-" class="scroll-smooth dark">
+    async function fetchAnime() {
+        try {
+            const res = await fetch('https://corsproxy.io/?https://animekai.bz/api/user/nxk7e/watchlist');
+            const data = await res.json();
+            animeList = data?.list?.length ? data.list : [];
+        } catch {
+            animeList = [];
+        }
+    }
+" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>nathanialihart</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -27,125 +34,112 @@
             color: black;
             transition: background 0.8s, color 0.8s;
         }
-        .dark body {
-            background: black;
+        .dark body { background: black; color: white; }
+        #loader {
+            position: fixed; inset: 0; background: black;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 50; transition: opacity 0.8s;
+        }
+        .fade-out { opacity: 0; pointer-events: none; }
+        h1 {
+            font-weight: 900; font-size: 2.25rem; text-align: center;
+            animation: glow 2s ease-in-out infinite alternate;
             color: white;
         }
-        h1 {
-            font-weight: 900;
-            font-size: 2.25rem;
-            letter-spacing: 0.05em;
-            text-align: center;
-            user-select: none;
-            text-shadow: 0 0 8px currentColor;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
+        .light h1 { color: black; }
         @keyframes glow {
             from { text-shadow: 0 0 8px currentColor; }
-            to   { text-shadow: 0 0 20px currentColor; }
+            to { text-shadow: 0 0 20px currentColor; }
         }
         button {
-            width:60px; height:30px; border:none;
-            border-radius:15px; position:relative;
-            background:black; color:white;
-            cursor:pointer; padding:0;
+            width: 60px; height: 30px; border: none;
+            border-radius: 15px; position: relative; background: black; color: white;
         }
-        .dark button { background:white; color:black; }
+        .dark button { background: white; color: black; }
         button::before {
-            content:""; position:absolute;
-            width:24px;height:24px;
-            background:white; border-radius:50%;
-            top:3px; left:3px;
-            transition: transform 0.3s, background 0.3s;
+            content: ""; position: absolute; width: 24px; height: 24px;
+            background: white; border-radius: 50%; top: 3px; left: 3px;
+            transition: transform 0.3s;
         }
-        .dark button::before {
-            background:black;
-            transform: translateX(30px);
-        }
-        #loader {
-            position:fixed; inset:0; background:black;
-            display:flex; align-items:center; justify-content:center;
-            z-index:50; transition:opacity 0.8s;
-        }
-        #loader.fade-out { opacity:0; pointer-events:none; }
-        .fade-in-slide-up {
-            opacity:0; transform:translateY(30px);
-            animation: fadeSlideUp 1.5s cubic-bezier(.25,.46,.45,.94) forwards;
-        }
-        .fade-in-slide-up.delay-1 { animation-delay:0.35s }
-        .fade-in-slide-up.delay-2 { animation-delay:0.7s }
-        .fade-in-slide-up.delay-3 { animation-delay:1.05s }
-        @keyframes fadeSlideUp {
-            to { opacity:1; transform:translateY(0); }
-        }
-        ::-webkit-scrollbar { width:14px; }
-        ::-webkit-scrollbar-thumb {
-            background: #555; border-radius:7px; transition:background .3s;
-        }
-        .dark ::-webkit-scrollbar-thumb { background:#bbb; }
-        nav {
-            backdrop-filter: saturate(200%) blur(16px);
-            background: rgba(255,255,255,0.75);
-            padding:1.5rem; border-radius:0 0 2rem 2rem;
-        }
-        .dark nav { background:rgba(0,0,0,0.85); }
-        section {
-            border-radius:2rem; margin:2rem auto; max-width:56rem;
-        }
+        .dark button::before { background: black; transform: translateX(30px); }
         .favorite-games {
-            background:black; color:white; padding:3rem;
-            box-shadow:0 25px 40px rgba(0,0,0,.8);
-            transition:transform .3s;
+            background: black; color: white; padding: 2rem;
+            border-radius: 2rem; text-align: center;
         }
-        .dark .favorite-games { background:white; color:black; box-shadow:0 25px 40px rgba(220,220,220,.7); }
-        .favorite-games:hover { transform:scale(1.05); }
+        .dark .favorite-games { background: white; color: black; }
         .favorite-games img {
-            max-width:200px; border-radius:1rem; margin:1rem;
+            max-width: 200px; border-radius: 1rem; margin: 1rem auto;
         }
-        section.contact a { color:#4f46e5; text-decoration:underline; }
+        .fade-in-slide-up {
+            opacity: 0; transform: translateY(30px);
+            animation: fadeSlideUp 1.5s forwards cubic-bezier(.25,.46,.45,.94);
+        }
+        .delay-1 { animation-delay: 0.35s; }
+        .delay-2 { animation-delay: 0.7s; }
+        .delay-3 { animation-delay: 1.05s; }
+        @keyframes fadeSlideUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
-    <div id="loader" x-bind:class="!loading ? 'fade-out' : ''"></div>
 
-    <nav class="flex justify-between items-center max-w-5xl mx-auto sticky top-0">
-        <h1>nathanialihart</h1>
-        <button @click="darkMode = !darkMode" aria-label="Toggle light and dark mode"></button>
-    </nav>
+<div id="loader" x-show="loading" x-transition.opacity></div>
 
-    <section class="text-center py-16 fade-in-slide-up delay-1">
-        <h2 class="text-6xl font-extrabold mb-5">Hi, I'm Nathanial</h2>
-        <p class="text-2xl max-w-xl mx-auto">
-            I'm a passionate learner who's currently pursuing the difficult path of computer engineering
-        </p>
-    </section>
+<nav class="flex justify-between items-center max-w-5xl mx-auto sticky top-0 z-40 p-6">
+    <h1>nathanialihart</h1>
+    <button @click="darkMode = !darkMode" aria-label="Toggle light and dark mode"></button>
+</nav>
 
-    <section class="favorite-games fade-in-slide-up delay-2 select-none">
-        <h3 class="text-4xl font-extrabold mb-6 text-center">Favorite games</h3>
-        <div class="flex flex-col items-center">
-            <div class="flex items-center">
-                <img src="data:image/png;base64,<!-- base64 of turn0image3 -->" alt="TDS" />
-                <a href="https://www.roblox.com/games/4662002670/Tower-Defense-Simulator" class="button mb-4">Play TDS on roblox</a>
+<section class="text-center py-28 px-6 max-w-3xl mx-auto fade-in-slide-up delay-1 select-none">
+    <h2 class="text-6xl md:text-7xl font-extrabold mb-5">
+        Hi, I'm Nathanial
+    </h2>
+    <p class="text-2xl md:text-3xl max-w-xl mx-auto leading-relaxed">
+        I'm a passionate learner who's currently pursuing the difficult path of computer engineering
+    </p>
+</section>
+
+<section class="favorite-games fade-in-slide-up delay-2 select-none">
+    <h3 class="text-4xl font-extrabold mb-8">Favorite games</h3>
+    <img src="https://tr.rbxcdn.com/79fba399a097e68bc35cdbd22fcf04dc/768/432/Image/Png" alt="TDS">
+    <p>
+        I like <span>TDS on roblox</span> — it’s a grindy ass tower defense game that I"ve been playing for like 5 years
+    </p>
+    <div class="text-center mb-8">
+        <a href="https://www.roblox.com/games/4662002670/Tower-Defense-Simulator" target="_blank" rel="noopener noreferrer" class="button">
+            Play TDS on roblox
+        </a>
+    </div>
+    <img src="https://upload.wikimedia.org/wikipedia/en/4/49/Clash_Royale_logo.png" alt="Clash Royale">
+    <p>
+        I also like <span>Clash Royale</span> — a shitty card game with gay cards and p2w players that make me want to slice my dick off
+    </p>
+    <div class="text-center">
+        <a href="https://clashroyale.com/" target="_blank" rel="noopener noreferrer" class="button">
+            Play Clash Royale
+        </a>
+    </div>
+</section>
+
+<section id="anime-section" class="fade-in-slide-up delay-3 select-none text-center py-20 px-6 max-w-4xl mx-auto">
+    <h3 class="text-4xl font-extrabold mb-8">Currently Watching</h3>
+    <template x-if="animeList.length === 0">
+        <p>No anime’s detected.</p>
+    </template>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 justify-center" x-show="animeList.length > 0">
+        <template x-for="anime in animeList" :key="anime.id">
+            <div class="flex flex-col items-center">
+                <img :src="anime.cover" :alt="anime.title" class="rounded-lg w-48 h-72 object-cover">
+                <p class="mt-2 text-lg font-bold" x-text="anime.title"></p>
             </div>
-            <div class="flex items-center">
-                <img src="data:image/png;base64,<!-- base64 of turn0image10 -->" alt="Clash Royale" />
-                <a href="https://clashroyale.com/" class="button">Play Clash Royale</a>
-            </div>
-        </div>
-    </section>
+        </template>
+    </div>
+</section>
 
-    <section id="anime-section" class="text-center py-16 fade-in-slide-up delay-3">
-        <h3 class="text-4xl font-extrabold mb-4">Currently Watching</h3>
-        <p class="text-center my-4">No anime’s detected.</p>
-    </section>
+<footer class="text-center text-sm p-8 text-gray-500 dark:text-gray-400 select-none">
+    Built with <span class="font-semibold text-indigo-400">Tailwind CSS</span> & <span class="font-semibold text-purple-400">Alpine.js</span>
+</footer>
 
-    <section class="contact text-center py-16 fade-in-slide-up delay-3">
-        <h3 class="text-4xl font-extrabold mb-8">Contact Me</h3>
-        <p class="mb-5 text-xl">WIP</p>
-        <p class="mb-2">email: <a href="mailto:nathanialihart100@gmail.com">nathanialihart100@gmail.com</a></p>
-        <p>github: <a href="https://github.com/nathanialihart" target="_blank" rel="noopener noreferrer">@nathanialihart</a></p>
-    </section>
-
-    <footer class="text-center text-sm p-8 select-none">Built with <span class="font-semibold">Tailwind CSS</span> & <span class="font-semibold">Alpine.js</span></footer>
 </body>
 </html>
