@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" x-data="{ darkMode: false }" x-init="
+    darkMode = JSON.parse(localStorage.getItem('darkMode') ?? 'false');
+    $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))
+" :class="{ 'dark': darkMode }">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nathanial Hart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans transition-colors duration-300">
+
+    <!-- Navbar -->
+    <nav class="flex justify-between items-center p-4 max-w-4xl mx-auto">
+        <h1 class="text-xl font-bold">Nathanial Hart</h1>
+        <button @click="darkMode = !darkMode" class="px-3 py-1 rounded bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+            Toggle Dark Mode
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="text-center py-16 px-4 max-w-2xl mx-auto">
+        <h2 class="text-4xl font-bold mb-4">Hi, I'm Nathanial.</h2>
+        <p class="text-lg">A software engineer who loves tech, building efficient tools, and experimenting with kernels on old devices.</p>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="max-w-4xl mx-auto py-12 px-4">
+        <h3 class="text-2xl font-bold mb-6 text-center">Projects</h3>
+        <div class="grid gap-6 md:grid-cols-2">
+            <!-- Example Project Card -->
+            <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded shadow hover:shadow-lg transition">
+                <h4 class="text-xl font-semibold mb-2">TDS Macro Automation</h4>
+                <p class="mb-2">Automating Tower Defense Simulator using Pulovrr's macro structures efficiently for map selection.</p>
+                <a href="https://github.com/YOURUSERNAME/YOURPROJECT" class="text-blue-600 dark:text-blue-400 hover:underline">View on GitHub →</a>
+            </div>
+            <!-- Add more project cards below as needed -->
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="text-center py-12 px-4 max-w-2xl mx-auto">
+        <h3 class="text-2xl font-bold mb-4">Contact</h3>
+        <p class="mb-2">You can reach me via:</p>
+        <p>Email: <a href="mailto:your@email.com" class="text-blue-600 dark:text-blue-400 hover:underline">your@email.com</a></p>
+        <p>GitHub: <a href="https://github.com/YOURUSERNAME" class="text-blue-600 dark:text-blue-400 hover:underline">YOURUSERNAME</a></p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center text-sm p-4 text-gray-500 dark:text-gray-400">
+        © 2025 Nathanial Hart. Built with Tailwind & Alpine.js.
+    </footer>
+</body>
+</html>
