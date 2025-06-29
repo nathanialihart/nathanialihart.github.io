@@ -42,38 +42,32 @@ body {
 }
 .fade-out { opacity: 0; pointer-events: none; }
 nav {
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
 }
 h1 {
     font-weight: 900; font-size: 2.25rem; text-align: center;
     animation: glow 2s ease-in-out infinite alternate;
     color: white;
-    filter: drop-shadow(0 0 10px white);
+    filter: drop-shadow(0 0 4px white);
 }
-.light h1 { color: black; filter: drop-shadow(0 0 10px black); }
+.light h1 { color: black; filter: drop-shadow(0 0 4px black); }
 @keyframes glow {
-    from { text-shadow: 0 0 8px currentColor; }
-    to { text-shadow: 0 0 20px currentColor; }
+    from { text-shadow: 0 0 4px currentColor; }
+    to { text-shadow: 0 0 10px currentColor; }
 }
 button {
     width: 60px; height: 30px; border: none;
-    border-radius: 15px; position: relative;
-    background: black; color: white;
-    box-shadow: 0 0 10px white, 0 0 20px white;
+    border-radius: 15px; position: relative; background: black; color: white;
+    box-shadow: 0 0 6px white;
 }
-.dark button {
-    background: white; color: black;
-    box-shadow: 0 0 10px black, 0 0 20px black;
-}
+.dark button { background: white; color: black; box-shadow: 0 0 6px black; }
 button::before {
     content: ""; position: absolute; width: 24px; height: 24px;
     background: white; border-radius: 50%; top: 3px; left: 3px;
     transition: transform 0.3s;
 }
-.dark button::before {
-    background: black; transform: translateX(30px);
-}
+.dark button::before { background: black; transform: translateX(30px); }
 .favorite-games {
     background: black; color: white; padding: 2rem;
     border-radius: 2rem; text-align: center;
@@ -81,7 +75,7 @@ button::before {
 .dark .favorite-games { background: white; color: black; }
 .favorite-games img {
     max-width: 200px; border-radius: 1rem; margin: 1rem auto;
-    box-shadow: 0 0 20px rgba(255,255,255,0.2);
+    box-shadow: 0 0 10px rgba(255,255,255,0.15);
 }
 .fade-in-slide-up {
     opacity: 0; transform: translateY(30px);
@@ -115,7 +109,7 @@ button::before {
 
 <section class="favorite-games fade-in-slide-up delay-2 select-none">
     <h3 class="text-4xl font-extrabold mb-8">Favorite games</h3>
-    <img src="https://tr.rbxcdn.com/79fba399a097e68bc35cdbd22fcf04dc/768/432/Image/Png" alt="TDS">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Roblox_screen_image.png/320px-Roblox_screen_image.png" alt="TDS">
     <p>
         I like <span>TDS on roblox</span> — it’s a grindy ass tower defense game that I"ve been playing for like 5 years
     </p>
@@ -124,7 +118,7 @@ button::before {
             Play TDS on roblox
         </a>
     </div>
-    <img src="https://upload.wikimedia.org/wikipedia/en/4/49/Clash_Royale_logo.png" alt="Clash Royale">
+    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Clash_Royale_logo.svg/320px-Clash_Royale_logo.svg.png" alt="Clash Royale">
     <p>
         I also like <span>Clash Royale</span> — a shitty card game with gay cards and p2w players that make me want to slice my dick off
     </p>
