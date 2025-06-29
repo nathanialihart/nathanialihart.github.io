@@ -56,25 +56,25 @@ h1 {
     from { text-shadow: 0 0 4px currentColor; }
     to { text-shadow: 0 0 10px currentColor; }
 }
-button {
+button.toggle {
     width: 60px; height: 30px; border: none;
     border-radius: 15px; position: relative; background: black; color: white;
     box-shadow: 0 0 6px white;
 }
-.dark button { background: white; color: black; box-shadow: 0 0 6px black; }
-button::before {
+.dark button.toggle { background: white; color: black; box-shadow: 0 0 6px black; }
+button.toggle::before {
     content: ""; position: absolute; width: 24px; height: 24px;
     background: white; border-radius: 50%; top: 3px; left: 3px;
     transition: transform 0.3s;
 }
-.dark button::before { background: black; transform: translateX(30px); }
+.dark button.toggle::before { background: black; transform: translateX(30px); }
 .favorite-games {
     background: black; color: white; padding: 2rem;
     border-radius: 2rem; text-align: center;
 }
 .dark .favorite-games { background: white; color: black; }
 .favorite-games img {
-    max-width: 200px; border-radius: 1rem; margin: 1rem auto;
+    max-width: 250px; border-radius: 1rem; margin: 1rem auto;
     box-shadow: 0 0 10px rgba(255,255,255,0.15);
 }
 .fade-in-slide-up {
@@ -87,6 +87,19 @@ button::before {
 @keyframes fadeSlideUp {
     to { opacity: 1; transform: translateY(0); }
 }
+a.button {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border: 2px solid currentColor;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+a.button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px currentColor;
+}
 </style>
 </head>
 <body>
@@ -95,7 +108,7 @@ button::before {
 
 <nav class="flex justify-between items-center max-w-5xl mx-auto sticky top-0 z-40 p-6">
     <h1>nathanialihart</h1>
-    <button @click="darkMode = !darkMode" aria-label="Toggle light and dark mode"></button>
+    <button class="toggle" @click="darkMode = !darkMode" aria-label="Toggle light and dark mode"></button>
 </nav>
 
 <section class="text-center py-28 px-6 max-w-3xl mx-auto fade-in-slide-up delay-1 select-none">
@@ -109,18 +122,18 @@ button::before {
 
 <section class="favorite-games fade-in-slide-up delay-2 select-none">
     <h3 class="text-4xl font-extrabold mb-8">Favorite games</h3>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Roblox_screen_image.png/320px-Roblox_screen_image.png" alt="TDS">
+    <img src="https://cdn.discordapp.com/attachments/1247891135437955124/1256046498017495111/tds_thumbnail.png" alt="TDS">
     <p>
-        I like <span>TDS on roblox</span> — it’s a grindy ass tower defense game that I"ve been playing for like 5 years
+        I like <span>TDS on Roblox</span> — it’s a grindy ass tower defense game that I've been playing for like 5 years
     </p>
     <div class="text-center mb-8">
         <a href="https://www.roblox.com/games/4662002670/Tower-Defense-Simulator" target="_blank" rel="noopener noreferrer" class="button">
-            Play TDS on roblox
+            Play TDS on Roblox
         </a>
     </div>
-    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Clash_Royale_logo.svg/320px-Clash_Royale_logo.svg.png" alt="Clash Royale">
+    <img src="https://cdn.discordapp.com/attachments/1247891135437955124/1256046498386817034/clash_royale_thumbnail.png" alt="Clash Royale">
     <p>
-        I also like <span>Clash Royale</span> — a shitty card game with gay cards and p2w players that make me want to slice my dick off
+        I also like <span>Clash Royale</span> — a shitty card game with p2w players that make me want to slice my dick off
     </p>
     <div class="text-center">
         <a href="https://clashroyale.com/" target="_blank" rel="noopener noreferrer" class="button">
