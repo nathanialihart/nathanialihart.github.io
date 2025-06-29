@@ -1,8 +1,22 @@
 <!DOCTYPE html>
 <html lang="en" x-data="{ darkMode: true }" x-init="
     darkMode = JSON.parse(localStorage.getItem('darkMode') ?? 'true');
-    $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))
-" :class="{ 'dark': darkMode, 'light': !darkMode }" class="scroll-smooth">
+    $watch('darkMode', value => {
+        localStorage.setItem('darkMode', JSON.stringify(value));
+        if (value) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+        } else {
+            document.documentElement.classList.add('light');
+            document.documentElement.classList.remove('dark');
+        }
+    });
+    if (darkMode) {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.add('light');
+    }
+" class="scroll-smooth">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,12 +30,10 @@
             background-color: white;
             color: black;
             transition: background-color 0.8s, color 0.8s;
-            border: 5px solid black;
         }
         .dark body {
             background-color: black;
             color: white;
-            border: 5px solid white;
         }
         .fade-in-slide-up {
             opacity: 0;
@@ -46,12 +58,10 @@
             overflow: hidden;
             background-color: black;
             color: white;
-            border: 3px solid white;
         }
         .dark button {
             background-color: white;
             color: black;
-            border: 3px solid black;
         }
         button::before {
             content: "";
@@ -69,9 +79,7 @@
             background: black;
             transform: translateY(-50%) translateX(1.75rem);
         }
-        button:hover {
-            transform: scale(1.05);
-        }
+        button:hover { transform: scale(1.05); }
         ::-webkit-scrollbar { width: 14px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #555; border-radius: 7px; transition: background 0.3s; }
@@ -83,22 +91,16 @@
             color: black;
             padding: 1.5rem 2.5rem;
             border-radius: 0 0 2rem 2rem;
-            border: 3px solid black;
         }
         .dark nav {
             background: rgba(0,0,0,0.85);
             color: white;
-            border: 3px solid white;
         }
         h1 {
             font-weight: 900;
             font-size: 2.25rem;
             letter-spacing: 0.05em;
             user-select: none;
-        }
-        section {
-            border-radius: 2rem;
-            border: 3px solid currentColor;
         }
         .favorite-games {
             background: black;
@@ -107,17 +109,14 @@
             padding: 3rem 3.5rem;
             margin: 5rem auto;
             max-width: 56rem;
-            border: 3px solid white;
+            border-radius: 2rem;
         }
         .dark .favorite-games {
             background: white;
             color: black;
             box-shadow: 0 25px 40px rgba(220,220,220,0.7);
-            border: 3px solid black;
         }
-        .favorite-games:hover {
-            transform: scale(1.05);
-        }
+        .favorite-games:hover { transform: scale(1.05); }
         .favorite-games h3 {
             font-size: 3.25rem;
             font-weight: 900;
@@ -130,9 +129,7 @@
             margin: 0 auto 2.5rem auto;
             text-align: center;
         }
-        .favorite-games span {
-            font-weight: 700;
-        }
+        .favorite-games span { font-weight: 700; }
         .favorite-games a.button {
             display: inline-block;
             padding: 1rem 2.5rem;
@@ -141,13 +138,21 @@
             font-size: 1.25rem;
             color: white;
             background: black;
-            text-decoration: underline;
+            text-decoration: none;
             border: 3px solid white;
+            transition: background 0.4s, transform 0.3s;
+        }
+        .favorite-games a.button:hover {
+            background: #222;
+            transform: scale(1.1);
         }
         .dark .favorite-games a.button {
             background: white;
             color: black;
             border: 3px solid black;
+        }
+        .dark .favorite-games a.button:hover {
+            background: #ddd;
         }
         section.contact a {
             color: #4f46e5;
@@ -176,7 +181,7 @@
     <section class="favorite-games fade-in-slide-up delay-2 select-none">
         <h3>Favorite games</h3>
         <p>
-            I like <span>TDS on roblox</span> — it’s a grindy ass tower defense game that I"ve been playing for 5 years
+            I like <span>TDS on roblox</span> — it’s a grindy ass tower defense game that I"ve been playing for like 5 years
         </p>
         <div class="text-center mb-8">
             <a href="https://www.roblox.com/games/4662002670/Tower-Defense-Simulator" target="_blank" rel="noopener noreferrer" class="button">
@@ -199,13 +204,13 @@
         </h3>
         <p class="mb-5 text-xl">WIP</p>
         <p class="mb-2">
-            Email:
+            email:
             <a href="mailto:nathanialihart100@gmail.com">
                 nathanialihart100@gmail.com
             </a>
         </p>
         <p>
-            GitHub:
+            github:
             <a href="https://github.com/nathanialihart" target="_blank" rel="noopener noreferrer">
                 @nathanialihart
             </a>
