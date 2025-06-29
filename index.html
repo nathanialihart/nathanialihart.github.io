@@ -15,17 +15,14 @@
             font-family: 'Inter', sans-serif;
             background-color: white;
             color: black;
-            transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1), color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: background-color 0.8s, color 0.8s;
+            border: 5px solid black;
         }
         .dark body {
-            background-color: #000;
+            background-color: black;
             color: white;
+            border: 5px solid white;
         }
-        .light body {
-            background-color: white;
-            color: black;
-        }
-
         .fade-in-slide-up {
             opacity: 0;
             transform: translateY(30px);
@@ -37,115 +34,95 @@
         .fade-in-slide-up.delay-1 { animation-delay: 0.35s; }
         .fade-in-slide-up.delay-2 { animation-delay: 0.7s; }
         .fade-in-slide-up.delay-3 { animation-delay: 1.05s; }
-
         @keyframes fadeSlideUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            to { opacity: 1; transform: translateY(0); }
         }
-
         button {
-            transition: background-color 0.4s ease, box-shadow 0.4s ease, transform 0.25s ease;
+            transition: background-color 0.4s, box-shadow 0.4s, transform 0.25s;
             font-weight: 700;
             padding: 0.75rem 1.5rem;
-            border-radius: 1rem;
-            box-shadow:
-                0 8px 15px rgba(0, 0, 0, 0.1),
-                0 6px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 2rem;
+            position: relative;
+            overflow: hidden;
+            background-color: black;
+            color: white;
+            border: 3px solid white;
         }
-
+        .dark button {
+            background-color: white;
+            color: black;
+            border: 3px solid black;
+        }
+        button::before {
+            content: "";
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: 50%;
+            top: 50%;
+            left: 0.75rem;
+            transform: translateY(-50%);
+            transition: background 0.3s, transform 0.3s;
+        }
+        .dark button::before {
+            background: black;
+            transform: translateY(-50%) translateX(1.75rem);
+        }
         button:hover {
-            transform: scale(1.1) translateY(-3px);
-            box-shadow:
-                0 12px 25px rgba(0, 0, 0, 0.2),
-                0 10px 30px rgba(0, 0, 0, 0.15);
+            transform: scale(1.05);
         }
-
-        button:active {
-            transform: scale(0.95);
-            box-shadow: none;
-        }
-
-        ::-webkit-scrollbar {
-            width: 14px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background-color: #555;
-            border-radius: 7px;
-            transition: background-color 0.3s ease;
-        }
-        .dark ::-webkit-scrollbar-thumb {
-            background-color: #bbb;
-        }
-        .light ::-webkit-scrollbar-thumb {
-            background-color: #555;
-        }
-
+        ::-webkit-scrollbar { width: 14px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #555; border-radius: 7px; transition: background 0.3s; }
+        .dark ::-webkit-scrollbar-thumb { background: #bbb; }
         nav {
             backdrop-filter: saturate(200%) blur(16px);
             -webkit-backdrop-filter: saturate(200%) blur(16px);
-            background-color: rgba(255 255 255 / 0.75);
+            background: rgba(255,255,255,0.75);
             color: black;
-            transition: background-color 0.8s ease, color 0.8s ease;
             padding: 1.5rem 2.5rem;
             border-radius: 0 0 2rem 2rem;
-            box-shadow:
-                0 8px 25px rgba(0, 0, 0, 0.08);
+            border: 3px solid black;
         }
         .dark nav {
-            background-color: rgba(0 0 0 / 0.85);
+            background: rgba(0,0,0,0.85);
             color: white;
-            box-shadow:
-                0 8px 30px rgba(0, 0, 0, 0.3);
+            border: 3px solid white;
         }
-
         h1 {
             font-weight: 900;
             font-size: 2.25rem;
             letter-spacing: 0.05em;
             user-select: none;
         }
-
         section {
             border-radius: 2rem;
+            border: 3px solid currentColor;
         }
-
         .favorite-games {
-            background-color: black;
+            background: black;
             color: white;
-            box-shadow:
-                0 25px 40px rgba(0, 0, 0, 0.8);
-            transition: background-color 0.8s ease, color 0.8s ease, box-shadow 0.6s ease;
+            box-shadow: 0 25px 40px rgba(0,0,0,0.8);
             padding: 3rem 3.5rem;
             margin: 5rem auto;
             max-width: 56rem;
-        }
-        .favorite-games:hover {
-            box-shadow:
-                0 35px 55px rgba(0, 0, 0, 0.95);
-            transform: scale(1.05);
+            border: 3px solid white;
         }
         .dark .favorite-games {
-            background-color: white;
+            background: white;
             color: black;
-            box-shadow:
-                0 25px 40px rgba(220, 220, 220, 0.7);
+            box-shadow: 0 25px 40px rgba(220,220,220,0.7);
+            border: 3px solid black;
         }
-        .dark .favorite-games:hover {
-            box-shadow:
-                0 35px 55px rgba(255, 255, 255, 0.85);
+        .favorite-games:hover {
+            transform: scale(1.05);
         }
-
         .favorite-games h3 {
             font-size: 3.25rem;
             font-weight: 900;
             margin-bottom: 1.75rem;
             text-align: center;
-            text-shadow: 0 0 12px rgba(255 255 255 / 0.15);
         }
         .favorite-games p {
             font-size: 1.4rem;
@@ -155,18 +132,7 @@
         }
         .favorite-games span {
             font-weight: 700;
-            text-decoration: underline;
-            text-decoration-thickness: 4px;
-            text-underline-offset: 6px;
-            cursor: default;
         }
-        .dark .favorite-games span {
-            text-decoration-color: black;
-        }
-        .favorite-games span {
-            text-decoration-color: white;
-        }
-
         .favorite-games a.button {
             display: inline-block;
             padding: 1rem 2.5rem;
@@ -174,50 +140,25 @@
             font-weight: 900;
             font-size: 1.25rem;
             color: white;
-            background-color: #000;
-            box-shadow:
-                0 12px 30px rgba(0,0,0,0.85);
-            text-decoration: none;
-            user-select: none;
-            transition: background-color 0.5s ease, box-shadow 0.5s ease, transform 0.3s ease;
-        }
-        .favorite-games a.button:hover {
-            background-color: #222;
-            box-shadow:
-                0 15px 40px rgba(0,0,0,0.95);
-            transform: scale(1.1);
+            background: black;
+            text-decoration: underline;
+            border: 3px solid white;
         }
         .dark .favorite-games a.button {
-            background-color: #fff;
-            color: #000;
-            box-shadow:
-                0 12px 30px rgba(255,255,255,0.85);
+            background: white;
+            color: black;
+            border: 3px solid black;
         }
-        .dark .favorite-games a.button:hover {
-            background-color: #eee;
-            box-shadow:
-                0 15px 40px rgba(255,255,255,0.95);
-        }
-
         section.contact a {
             color: #4f46e5;
-            transition: color 0.3s ease;
             text-decoration: underline;
-        }
-        section.contact a:hover {
-            color: #3730a3;
         }
     </style>
 </head>
 <body>
-
     <nav class="flex justify-between items-center max-w-5xl mx-auto sticky top-0 z-40 shadow-md">
         <h1>nathanialihart</h1>
-        <button 
-            @click="darkMode = !darkMode" 
-            aria-label="Toggle light and dark mode"
-            class="bg-black dark:bg-white text-white dark:text-black"
-        >
+        <button @click="darkMode = !darkMode" aria-label="Toggle light and dark mode">
             <template x-if="darkMode">Light Mode</template>
             <template x-if="!darkMode">Dark Mode</template>
         </button>
@@ -239,16 +180,15 @@
         </p>
         <div class="text-center mb-8">
             <a href="https://www.roblox.com/games/4662002670/Tower-Defense-Simulator" target="_blank" rel="noopener noreferrer" class="button">
-                Play TDS on roblox →
+                Play TDS on roblox
             </a>
         </div>
-
         <p>
             I also like <span>Clash Royale</span> — a shitty card game with gay cards and p2w players that make me want to slice my dick off
         </p>
         <div class="text-center">
             <a href="https://clashroyale.com/" target="_blank" rel="noopener noreferrer" class="button">
-                Play Clash Royale →
+                Play Clash Royale
             </a>
         </div>
     </section>
@@ -259,13 +199,13 @@
         </h3>
         <p class="mb-5 text-xl">WIP</p>
         <p class="mb-2">
-            Email: 
+            Email:
             <a href="mailto:nathanialihart100@gmail.com">
                 nathanialihart100@gmail.com
             </a>
         </p>
         <p>
-            GitHub: 
+            GitHub:
             <a href="https://github.com/nathanialihart" target="_blank" rel="noopener noreferrer">
                 @nathanialihart
             </a>
@@ -273,8 +213,7 @@
     </section>
 
     <footer class="text-center text-sm p-8 text-gray-500 dark:text-gray-400 select-none">
-        Built with <span class="font-semibold text-indigo-400">Tailwind CSS</span> &amp; <span class="font-semibold text-purple-400">Alpine.js</span>
+        Built with <span class="font-semibold text-indigo-400">Tailwind CSS</span> & <span class="font-semibold text-purple-400">Alpine.js</span>
     </footer>
-
 </body>
 </html>
