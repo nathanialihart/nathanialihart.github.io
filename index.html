@@ -15,7 +15,7 @@
             font-family: 'Inter', sans-serif;
             background-color: white;
             color: black;
-            transition: background-color 0.5s ease, color 0.5s ease;
+            transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1), color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .dark body {
             background-color: #000;
@@ -28,15 +28,15 @@
 
         .fade-in-slide-up {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(30px);
             animation-fill-mode: forwards;
             animation-name: fadeSlideUp;
-            animation-duration: 1s;
-            animation-timing-function: ease;
+            animation-duration: 1.5s;
+            animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
-        .fade-in-slide-up.delay-1 { animation-delay: 0.3s; }
-        .fade-in-slide-up.delay-2 { animation-delay: 0.6s; }
-        .fade-in-slide-up.delay-3 { animation-delay: 0.9s; }
+        .fade-in-slide-up.delay-1 { animation-delay: 0.35s; }
+        .fade-in-slide-up.delay-2 { animation-delay: 0.7s; }
+        .fade-in-slide-up.delay-3 { animation-delay: 1.05s; }
 
         @keyframes fadeSlideUp {
             to {
@@ -46,60 +46,183 @@
         }
 
         button {
-            transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+            transition: background-color 0.4s ease, box-shadow 0.4s ease, transform 0.25s ease;
+            font-weight: 700;
+            padding: 0.75rem 1.5rem;
+            border-radius: 1rem;
+            box-shadow:
+                0 8px 15px rgba(0, 0, 0, 0.1),
+                0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            transform: scale(1.1) translateY(-3px);
+            box-shadow:
+                0 12px 25px rgba(0, 0, 0, 0.2),
+                0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        button:active {
+            transform: scale(0.95);
+            box-shadow: none;
         }
 
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 14px;
         }
         ::-webkit-scrollbar-track {
             background: transparent;
         }
         ::-webkit-scrollbar-thumb {
-            background-color: #888;
-            border-radius: 5px;
+            background-color: #555;
+            border-radius: 7px;
             transition: background-color 0.3s ease;
         }
         .dark ::-webkit-scrollbar-thumb {
             background-color: #bbb;
         }
         .light ::-webkit-scrollbar-thumb {
-            background-color: #888;
+            background-color: #555;
         }
 
         nav {
-            backdrop-filter: saturate(180%) blur(12px);
-            -webkit-backdrop-filter: saturate(180%) blur(12px);
-            background-color: rgba(255 255 255 / 0.7);
+            backdrop-filter: saturate(200%) blur(16px);
+            -webkit-backdrop-filter: saturate(200%) blur(16px);
+            background-color: rgba(255 255 255 / 0.75);
             color: black;
-            transition: background-color 0.5s ease, color 0.5s ease;
+            transition: background-color 0.8s ease, color 0.8s ease;
+            padding: 1.5rem 2.5rem;
+            border-radius: 0 0 2rem 2rem;
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.08);
         }
         .dark nav {
-            background-color: rgba(0 0 0 / 0.7);
+            background-color: rgba(0 0 0 / 0.85);
             color: white;
+            box-shadow:
+                0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-weight: 900;
+            font-size: 2.25rem;
+            letter-spacing: 0.05em;
+            user-select: none;
+        }
+
+        section {
+            border-radius: 2rem;
+        }
+
+        .favorite-games {
+            background-color: black;
+            color: white;
+            box-shadow:
+                0 25px 40px rgba(0, 0, 0, 0.8);
+            transition: background-color 0.8s ease, color 0.8s ease, box-shadow 0.6s ease;
+            padding: 3rem 3.5rem;
+            margin: 5rem auto;
+            max-width: 56rem;
+        }
+        .favorite-games:hover {
+            box-shadow:
+                0 35px 55px rgba(0, 0, 0, 0.95);
+            transform: scale(1.05);
+        }
+        .dark .favorite-games {
+            background-color: white;
+            color: black;
+            box-shadow:
+                0 25px 40px rgba(220, 220, 220, 0.7);
+        }
+        .dark .favorite-games:hover {
+            box-shadow:
+                0 35px 55px rgba(255, 255, 255, 0.85);
+        }
+
+        .favorite-games h3 {
+            font-size: 3.25rem;
+            font-weight: 900;
+            margin-bottom: 1.75rem;
+            text-align: center;
+            text-shadow: 0 0 12px rgba(255 255 255 / 0.15);
+        }
+        .favorite-games p {
+            font-size: 1.4rem;
+            max-width: 44rem;
+            margin: 0 auto 2.5rem auto;
+            text-align: center;
+        }
+        .favorite-games span {
+            font-weight: 700;
+            text-decoration: underline;
+            text-decoration-thickness: 4px;
+            text-underline-offset: 6px;
+            cursor: default;
+        }
+        .dark .favorite-games span {
+            text-decoration-color: black;
+        }
+        .favorite-games span {
+            text-decoration-color: white;
+        }
+
+        .favorite-games a.button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border-radius: 3rem;
+            font-weight: 900;
+            font-size: 1.25rem;
+            color: white;
+            background-color: #000;
+            box-shadow:
+                0 12px 30px rgba(0,0,0,0.85);
+            text-decoration: none;
+            user-select: none;
+            transition: background-color 0.5s ease, box-shadow 0.5s ease, transform 0.3s ease;
+        }
+        .favorite-games a.button:hover {
+            background-color: #222;
+            box-shadow:
+                0 15px 40px rgba(0,0,0,0.95);
+            transform: scale(1.1);
+        }
+        .dark .favorite-games a.button {
+            background-color: #fff;
+            color: #000;
+            box-shadow:
+                0 12px 30px rgba(255,255,255,0.85);
+        }
+        .dark .favorite-games a.button:hover {
+            background-color: #eee;
+            box-shadow:
+                0 15px 40px rgba(255,255,255,0.95);
+        }
+
+        section.contact a {
+            color: #4f46e5;
+            transition: color 0.3s ease;
+            text-decoration: underline;
+        }
+        section.contact a:hover {
+            color: #3730a3;
         }
     </style>
 </head>
 <body>
 
-    <!-- Navbar -->
-    <nav class="flex justify-between items-center p-6 max-w-5xl mx-auto sticky top-0 z-40 shadow-md rounded-b-lg">
-        <h1 class="text-3xl font-extrabold select-none">nathanialihart</h1>
+    <nav class="flex justify-between items-center max-w-5xl mx-auto sticky top-0 z-40 shadow-md">
+        <h1>nathanialihart</h1>
         <button 
             @click="darkMode = !darkMode" 
-            class="px-5 py-2 rounded-full font-semibold shadow-lg
-                transition hover:scale-105 active:scale-95
-                bg-black dark:bg-white
-                text-white dark:text-black
-                focus:outline-none focus:ring-4 focus:ring-black/50 dark:focus:ring-white/50"
             aria-label="Toggle light and dark mode"
+            class="bg-black dark:bg-white text-white dark:text-black"
         >
             <template x-if="darkMode">Light Mode</template>
             <template x-if="!darkMode">Dark Mode</template>
         </button>
     </nav>
 
-    <!-- Hero Section -->
     <section class="text-center py-28 px-6 max-w-3xl mx-auto fade-in-slide-up delay-1 select-none">
         <h2 class="text-6xl md:text-7xl font-extrabold mb-5">
             Hi, I'm Nathanial
@@ -109,46 +232,46 @@
         </p>
     </section>
 
-    <!-- Favorite Game Section -->
-    <section class="max-w-4xl mx-auto rounded-xl p-12 my-20
-        bg-black dark:bg-white
-        text-white dark:text-black
-        shadow-xl hover:shadow-2xl transition hover:scale-[1.04] fade-in-slide-up delay-2 select-none">
-        <h3 class="text-4xl font-extrabold mb-6 text-center drop-shadow-lg">
-            My Favorite Game
-        </h3>
-        <p class="text-center mb-8 text-lg md:text-xl max-w-xl mx-auto">
-            I like <span class="font-semibold underline decoration-black decoration-4 underline-offset-6 dark:decoration-white">TDS on roblox</span> — it’s a grindy ass tower defense game that I"ve been playing for 5 years
+    <section class="favorite-games fade-in-slide-up delay-2 select-none">
+        <h3>Favorite games</h3>
+        <p>
+            I like <span>TDS on roblox</span> — it’s a grindy ass tower defense game that I"ve been playing for 5 years
+        </p>
+        <div class="text-center mb-8">
+            <a href="https://www.roblox.com/games/4662002670/Tower-Defense-Simulator" target="_blank" rel="noopener noreferrer" class="button">
+                Play TDS on roblox →
+            </a>
+        </div>
+
+        <p>
+            I also like <span>Clash Royale</span> — a competitive card game with real-time strategy and quick battles
         </p>
         <div class="text-center">
-            <a href="https://www.roblox.com/games/4662002670/Tower-Defense-Simulator" target="_blank" rel="noopener noreferrer" 
-               class="inline-block px-10 py-4 rounded-full bg-white dark:bg-black text-black dark:text-white font-extrabold text-lg shadow-lg transition hover:bg-gray-200 dark:hover:bg-gray-800 active:scale-95">
-                Play TDS on roblox →
+            <a href="https://clashroyale.com/" target="_blank" rel="noopener noreferrer" class="button">
+                Play Clash Royale →
             </a>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section class="text-center py-20 px-8 max-w-2xl mx-auto fade-in-slide-up delay-3 select-none">
+    <section class="contact text-center py-20 px-8 max-w-2xl mx-auto fade-in-slide-up delay-3 select-none">
         <h3 class="text-4xl font-extrabold mb-8">
             Contact Me
         </h3>
         <p class="mb-5 text-xl">WIP</p>
-        <p class="mb-2 text-indigo-300 hover:text-indigo-400 transition">
+        <p class="mb-2">
             Email: 
-            <a href="mailto:nathanialihart100@gmail.com" class="underline">
+            <a href="mailto:nathanialihart100@gmail.com">
                 nathanialihart100@gmail.com
             </a>
         </p>
-        <p class="text-indigo-300 hover:text-indigo-400 transition">
+        <p>
             GitHub: 
-            <a href="https://github.com/nathanialihart" target="_blank" rel="noopener noreferrer" class="underline">
+            <a href="https://github.com/nathanialihart" target="_blank" rel="noopener noreferrer">
                 @nathanialihart
             </a>
         </p>
     </section>
 
-    <!-- Footer -->
     <footer class="text-center text-sm p-8 text-gray-500 dark:text-gray-400 select-none">
         Built with <span class="font-semibold text-indigo-400">Tailwind CSS</span> &amp; <span class="font-semibold text-purple-400">Alpine.js</span>
     </footer>
