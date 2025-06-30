@@ -189,21 +189,6 @@ a.button:hover {
     </div>
 </section>
 
-<section id="anime-section" class="fade-in-slide-up delay-3 select-none text-center py-20 px-6 max-w-4xl mx-auto">
-    <h3 class="text-4xl font-extrabold mb-8">Currently Watching</h3>
-    <template x-if="animeList.length === 0">
-        <p>No anime’s detected.</p>
-    </template>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 justify-center" x-show="animeList.length > 0">
-        <template x-for="anime in animeList" :key="anime.id">
-            <div class="flex flex-col items-center">
-                <img :src="anime.cover" :alt="anime.title" class="rounded-lg w-48 h-72 object-cover" />
-                <p class="mt-2 text-lg font-bold" x-text="anime.title"></p>
-            </div>
-        </template>
-    </div>
-</section>
-
 <footer class="text-center text-sm p-8 text-gray-500 dark:text-gray-400 select-none">
     Built with <span class="font-semibold text-indigo-400">Tailwind CSS</span> &amp; <span class="font-semibold text-purple-400">Alpine.js</span>
 </footer>
