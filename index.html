@@ -22,50 +22,57 @@
 " class="scroll-smooth">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>nathanialihart</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
 <style>
-body {
+  body {
     font-family: 'Inter', sans-serif;
     background: white;
     color: black;
     transition: background 0.8s, color 0.8s;
-}
-.dark body { background: black; color: white; }
-#loader {
-    position: fixed; inset: 0; background: black;
-    display: flex; align-items: center; justify-content: center;
-    z-index: 50; transition: opacity 0.8s;
-}
-.fade-out { opacity: 0; pointer-events: none; }
-nav {
-    backdrop-filter: blur(2px); /* lighter blur */
+  }
+  .dark body {
+    background: black;
+    color: white;
+  }
+  #loader {
+    position: fixed;
+    inset: 0;
+    background: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    transition: opacity 0.8s;
+  }
+  nav {
+    backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
-    background-color: rgba(255, 255, 255, 0.3); /* light transparent bg for light mode */
-}
-.dark nav {
-    background-color: rgba(0, 0, 0, 0.3); /* light transparent bg for dark mode */
-}
-h1 {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+  .dark nav {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  h1 {
     font-weight: 900;
     font-size: 2.25rem;
     text-align: center;
     animation: glow 2s ease-in-out infinite alternate;
     color: white;
     filter: drop-shadow(0 0 4px white);
-}
-.light h1 {
+  }
+  .light h1 {
     color: black;
     filter: drop-shadow(0 0 4px black);
-}
-@keyframes glow {
+  }
+  @keyframes glow {
     from { text-shadow: 0 0 4px currentColor; }
     to { text-shadow: 0 0 10px currentColor; }
-}
-button.toggle {
+  }
+  button.toggle {
     width: 60px;
     height: 30px;
     border: none;
@@ -75,13 +82,13 @@ button.toggle {
     color: white;
     box-shadow: 0 0 6px white;
     cursor: pointer;
-}
-.dark button.toggle {
+  }
+  .dark button.toggle {
     background: white;
     color: black;
     box-shadow: 0 0 6px black;
-}
-button.toggle::before {
+  }
+  button.toggle::before {
     content: "";
     position: absolute;
     width: 24px;
@@ -91,23 +98,23 @@ button.toggle::before {
     top: 3px;
     left: 3px;
     transition: transform 0.3s;
-}
-.dark button.toggle::before {
+  }
+  .dark button.toggle::before {
     background: black;
     transform: translateX(30px);
-}
-.fade-in-slide-up {
+  }
+  .fade-in-slide-up {
     opacity: 0;
     transform: translateY(30px);
     animation: fadeSlideUp 1.5s forwards cubic-bezier(.25,.46,.45,.94);
-}
-.delay-1 { animation-delay: 0.35s; }
-.delay-2 { animation-delay: 0.7s; }
-.delay-3 { animation-delay: 1.05s; }
-@keyframes fadeSlideUp {
+  }
+  .delay-1 { animation-delay: 0.35s; }
+  .delay-2 { animation-delay: 0.7s; }
+  .delay-3 { animation-delay: 1.05s; }
+  @keyframes fadeSlideUp {
     to { opacity: 1; transform: translateY(0); }
-}
-a.button {
+  }
+  a.button {
     display: inline-block;
     padding: 0.5rem 1rem;
     border: 2px solid currentColor;
@@ -115,18 +122,27 @@ a.button {
     font-weight: 600;
     text-decoration: none;
     transition: transform 0.2s, box-shadow 0.2s;
-}
-a.button:hover {
+  }
+  a.button:hover {
     transform: scale(1.05);
     box-shadow: 0 0 10px currentColor;
-}
-.gitHubIcon {
+  }
+  .gitHubIcon {
     width: 28px;
     height: 28px;
     fill: currentColor;
     vertical-align: middle;
     margin-left: 0.5rem;
-}
+  }
+  /* Darker background for language cards in light mode */
+  .language-card {
+    background-color: #e2e8f0; /* Tailwind gray-200 */
+    color: #1a202c; /* Tailwind gray-900 */
+  }
+  .dark .language-card {
+    background-color: #1a202c; /* Tailwind gray-900 */
+    color: #e2e8f0; /* Tailwind gray-200 */
+  }
 </style>
 </head>
 <body>
@@ -134,78 +150,84 @@ a.button:hover {
 <div id="loader" x-show="loading" x-transition.opacity></div>
 
 <nav class="flex justify-between items-center max-w-5xl mx-auto sticky top-0 z-40 p-6">
-    <h1>nathanialihart</h1>
-    <div class="flex items-center">
-        <button class="toggle" @click="darkMode = !darkMode" aria-label="Toggle light and dark mode"></button>
-        <a href="https://github.com/nathanialihart" target="_blank" rel="noopener noreferrer" class="ml-4" aria-label="GitHub Profile">
-            <svg class="gitHubIcon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.603-3.369-1.343-3.369-1.343-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.004.07 1.532 1.032 1.532 1.032.893 1.53 2.341 1.088 2.91.832.091-.647.35-1.088.636-1.339-2.22-.253-4.555-1.11-4.555-4.941 0-1.09.39-1.982 1.029-2.68-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025a9.564 9.564 0 0 1 2.5-.337c.85.004 1.705.115 2.5.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.698 1.028 1.59 1.028 2.68 0 3.842-2.337 4.685-4.565 4.932.36.31.682.92.682 1.855 0 1.337-.012 2.417-.012 2.747 0 .268.18.58.688.481A10.013 10.013 0 0 0 22 12c0-5.523-4.477-10-10-10z"/>
-            </svg>
-        </a>
-    </div>
+  <h1>nathanialihart</h1>
+  <div class="flex items-center">
+    <button class="toggle" @click="darkMode = !darkMode" aria-label="Toggle light and dark mode"></button>
+    <a href="https://github.com/nathanialihart" target="_blank" rel="noopener noreferrer" class="ml-4" aria-label="GitHub Profile">
+      <svg class="gitHubIcon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.013-1.703-2.782.603-3.369-1.343-3.369-1.343-.454-1.154-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.004.07 1.532 1.032 1.532 1.032.893 1.53 2.341 1.088 2.91.832.091-.647.35-1.088.636-1.339-2.22-.253-4.555-1.11-4.555-4.941 0-1.09.39-1.982 1.029-2.68-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025a9.564 9.564 0 0 1 2.5-.337c.85.004 1.705.115 2.5.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.698 1.028 1.59 1.028 2.68 0 3.842-2.337 4.685-4.565 4.932.36.31.682.92.682 1.855 0 1.337-.012 2.417-.012 2.747 0 .268.18.58.688.481A10.013 10.013 0 0 0 22 12c0-5.523-4.477-10-10-10z"/>
+      </svg>
+    </a>
+  </div>
 </nav>
 
 <section class="text-center py-28 px-6 max-w-3xl mx-auto fade-in-slide-up delay-1 select-none">
-    <h2 class="text-6xl md:text-7xl font-extrabold mb-5">
-        Hi, I'm Nathanial, better known as Mango
-    </h2>
-    <p class="text-2xl md:text-3xl max-w-xl mx-auto leading-relaxed">
-        I'm a passionate learner who's currently pursuing the difficult path of computer engineering
-    </p>
+  <h2 class="text-6xl md:text-7xl font-extrabold mb-5">
+    Hi, I'm Nathanial, better known as Mango
+  </h2>
+  <p class="text-2xl md:text-3xl max-w-xl mx-auto leading-relaxed">
+    I'm a passionate learner who's currently pursuing the difficult path of computer engineering
+  </p>
 </section>
 
-<section class="favorite-games fade-in-slide-up delay-2 select-none bg-gray-100 dark:bg-gray-800 text-black dark:text-white p-8 rounded-2xl flex flex-col items-center justify-center">
-    <h3 class="text-4xl font-extrabold mb-8">Favorite games</h3>
-    <p>
-        I like <span>TDS on Roblox</span> — it’s a grindy ass tower defense game that I've been playing for like 5 years
-    </p>
-    <div class="text-center mb-8">
-        <a href="https://www.roblox.com/games/3260590327/Tower-Defense-Simulator" target="_blank" rel="noopener noreferrer" class="button">
-            Play TDS on Roblox
-        </a>
-    </div>
-    <p>
-        I also like <span>Clash Royale</span> — a shitty card game with p2w players that make me want to slice my dick off
-    </p>
-    <div class="text-center">
-        <a
-          :href="(() => {
-            const ua = navigator.userAgent || navigator.vendor || window.opera;
-            if (/android/i.test(ua)) return 'https://play.google.com/store/apps/details?id=com.supercell.clashroyale';
-            if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) return 'https://apps.apple.com/app/id1053012308';
-            return 'https://clashroyale.com/';
-          })()"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button"
-        >
-          Play Clash Royale
-        </a>
-    </div>
+<section class="favorite-games fade-in-slide-up delay-2 select-none bg-gray-100 dark:bg-gray-800 text-black dark:text-white p-8 rounded-2xl flex flex-col items-center justify-center max-w-3xl mx-auto">
+  <h3 class="text-4xl font-extrabold mb-8">Favorite games</h3>
+  <p>
+    I like <span>TDS on Roblox</span> — it’s a grindy ass tower defense game that I've been playing for like 5 years
+  </p>
+  <div class="text-center mb-8">
+    <a href="https://www.roblox.com/games/3260590327/Tower-Defense-Simulator" target="_blank" rel="noopener noreferrer" class="button">
+      Play TDS on Roblox
+    </a>
+  </div>
+  <p>
+    I also like <span>Clash Royale</span> — a shitty card game with p2w players that make me want to slice my dick off
+  </p>
+  <div class="text-center">
+    <a
+      :href="(() => {
+        const ua = navigator.userAgent || navigator.vendor || window.opera;
+        if (/android/i.test(ua)) return 'https://play.google.com/store/apps/details?id=com.supercell.clashroyale';
+        if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) return 'https://apps.apple.com/app/id1053012308';
+        return 'https://clashroyale.com/';
+      })()"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="button"
+    >
+      Play Clash Royale
+    </a>
+  </div>
 </section>
 
-<footer class="text-center text-sm p-8 text-gray-500 dark:text-gray-400 select-none">
-    Built with <span class="font-semibold text-indigo-400">Tailwind CSS</span> &amp; <span class="font-semibold text-purple-400">Alpine.js</span>
-    <section class="fade-in-slide-up delay-3 max-w-3xl mx-auto px-6 py-16 select-none">
-      <h3 class="text-4xl font-extrabold mb-8 text-center">languages i know (barely)</h3>
-      <div class="flex flex-wrap justify-center gap-12 text-xl font-semibold">
-        <div class="flex flex-col items-center bg-gray-100 dark:bg-gray-800 rounded-3xl px-10 py-8 w-40 shadow-lg">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-4 text-yellow-400" viewBox="0 0 128 128" fill="currentColor" aria-hidden="true" role="img" >
-            <path d="M126.9 110.4l-8.7-27.8c-.6-1.7-1.8-3.2-3.4-4.2-3-2.2-6.9-1.6-9.3 1.2-1.7 1.9-3.8 3.3-6.3 4.2l-.1-.1-1.3-.7-4.9-2.7c-2.3-1.3-5-1.4-7.4-.3-2.3 1.1-4.1 3.1-5.2 5.5-.6 1.5-.9 3.1-.9 4.7 0 1.7.5 3.4 1.4 4.8 1.1 1.9 3.3 3.1 5.6 3.1h.1c2.7 0 5.1-1.7 5.9-4.3l4.4 2.5 2.7 1.5c3.3 1.8 7.4 1.5 10.4-1 2.2-1.8 3.5-4.7 3.5-7.8 0-.1 0-.1 0-.2zM29.8 64.8c.1-.4 2.7-10.3 7.9-21.3l-7.6-4.4c-1.6-1-3.7-1-5.3.1-1.6 1.1-2.5 3-2.4 5.1v28.7l7.4-4.2zm26.3 38.1-3.5-6.1 3.3-6c.7-1.3 1.1-2.7 1.1-4.2 0-1.4-.3-2.7-1-3.9-.7-1.3-1.9-2.3-3.4-2.8-1.3-.4-2.8-.5-4.3-.2l-5 1.2-5.6-10.1 13.1-7.2 8.3-4.5c5-2.7 6.9-10.6 3.7-15.9-2.5-3.8-7.7-5-11.8-2.9l-7.7 4.3-13.3-7.6 13.4-7.3 7.5-4.1c7.5-4.1 18-2 21.3 8.1 2.7 7.9-.5 17.1-7.7 22.6l-8.3 4.5-8.3 4.5c-3.8 2-5.7 6.3-5 10.4l3.5 6.1-3.3 6c-.7 1.3-1.1 2.7-1.1 4.2 0 1.4.3 2.7 1 3.9.7 1.3 1.9 2.3 3.4 2.8 1.3.4 2.8.5 4.3.2l5-1.2 5.6 10.1-13.1 7.2-8.3 4.5c-5 2.7-6.9 10.6-3.7 15.9 2.5 3.8 7.7 5 11.8 2.9l7.7-4.3 13.3 7.6-13.4 7.3-7.5 4.1c-7.5 4.1-18 2-21.3-8.1-2.7-7.9.5-17.1 7.7-22.6l8.3-4.5 8.3-4.5c3.8-2 5.7-6.3 5-10.4z"/>
-          </svg>
-          Python
-        </div>
-        <div class="flex flex-col items-center bg-gray-100 dark:bg-gray-800 rounded-3xl px-10 py-8 w-40 shadow-lg">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-4 text-blue-600" viewBox="0 0 128 128" aria-hidden="true" role="img" >
-            <path fill="#E44D26" d="M19.4 114.9L12 0h104l-7.4 114.9L63.7 128"/>
-            <path fill="#F16529" d="M64 117.1l32.2-8.9 6.3-88.5H64"/>
-            <path fill="#EBEBEB" d="M64 66.1h-14l.9 10.2H64v10.4H49.3l1.7 18.9 13.2 3.7v10.2l-33.7-9.3-.2-2.4-4.1-46.4-.1-1.6h18.8v10.2zM64 20.8h38.8l.5-5.8-40.2-.1v5.9z"/>
-            <path fill="#fff" d="M64 66.1v-10.2h32.8l-.3 3.5-3.1 34.5-14.5 4-14.2-4.1-.9-10.2h14.1zM64 36.7V20.8h-38.9l-.2 2.4-4.1 46.4-.1 1.6h18.7v-10.2H26.6l1.5-17 14.6-4.2v10.1z"/>
-          </svg>
-          HTML
-        </div>
-      </div>
-    </section>
+<section class="fade-in-slide-up delay-3 max-w-3xl mx-auto px-6 py-16 select-none">
+  <h3 class="text-4xl font-extrabold mb-8 text-center">languages i know (barely)</h3>
+  <div class="flex flex-wrap justify-center gap-12 text-xl font-semibold">
+    <div class="language-card flex flex-col items-center rounded-3xl px-10 py-8 w-40 shadow-lg">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-4" viewBox="0 0 64 64" aria-hidden="true" role="img" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M32 2c-10 0-18 8-18 18a18 18 0 0 0 36 0c0-10-8-18-18-18z" fill="#306998"/>
+        <path d="M32 18a14 14 0 0 0-14 14c0 9 14 14 14 14s14-5 14-14a14 14 0 0 0-14-14z" fill="#FFD43B"/>
+        <path d="M23 44c0-4 4-7 9-7s9 3 9 7" stroke="#FFE873"/>
+        <path d="M28 46v-6" stroke="#FFE873"/>
+        <path d="M36 46v-6" stroke="#FFE873"/>
+        <circle cx="32" cy="54" r="2" fill="#FFE873"/>
+      </svg>
+      Python
+    </div>
+    <div class="language-card flex flex-col items-center rounded-3xl px-10 py-8 w-40 shadow-lg">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-4" viewBox="0 0 128 128" aria-hidden="true" role="img" fill="none">
+        <path fill="#E44D26" d="M19.4 114.9L12 0h104l-7.4 114.9L63.7 128"/>
+        <path fill="#F16529" d="M64 117.1l32.2-8.9 6.3-88.5H64"/>
+        <path fill="#EBEBEB" d="M64 66.1h-14l.9 10.2H64v10.4H49.3l1.7 18.9 13.2 3.7v10.2l-33.7-9.3-.2-2.4-4.1-46.4-.1-1.6h18.8v10.2zM64 20.8h38.8l.5-5.8-40.2-.1v5.9z"/>
+        <path fill="#fff" d="M64 66.1v-10.2h32.8l-.3 3.5-3.1 34.5-14.5 4-14.2-4.1-.9-10.2h14.1zM64 36.7V20.8h-38.9l-.2 2.4-4.1 46.4-.1 1.6h18.7v-10.2H26.6l1.5-17 14.6-4.2v10.1z"/>
+      </svg>
+      HTML
+    </div>
+  </div>
+</section>
+
+<footer class="text-center text-sm p-6 text-gray-500 dark:text-gray-400 select-none max-w-3xl mx-auto">
+  Built with <span class="font-semibold text-indigo-400">Tailwind CSS</span> &amp; <span class="font-semibold text-purple-400">Alpine.js</span>
 </footer>
 
 </body>
