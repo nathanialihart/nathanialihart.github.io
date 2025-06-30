@@ -183,8 +183,18 @@ a.button:hover {
         I also like <span>Clash Royale</span> — a shitty card game with p2w players that make me want to slice my dick off
     </p>
     <div class="text-center">
-        <a href="https://clashroyale.com/" target="_blank" rel="noopener noreferrer" class="button">
-            Play Clash Royale
+        <a
+          :href="(() => {
+            const ua = navigator.userAgent || navigator.vendor || window.opera;
+            if (/android/i.test(ua)) return 'https://play.google.com/store/apps/details?id=com.supercell.clashroyale';
+            if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) return 'https://apps.apple.com/app/id1053012308';
+            return 'https://clashroyale.com/';
+          })()"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="button"
+        >
+          Play Clash Royale
         </a>
     </div>
 </section>
