@@ -102,16 +102,14 @@ button.toggle::before {
     padding: 2rem;
     border-radius: 2rem;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 .dark .favorite-games {
     background: white;
     color: black;
-}
-.favorite-games img {
-    max-width: 250px;
-    border-radius: 1rem;
-    margin: 1rem auto;
-    box-shadow: 0 0 10px rgba(255,255,255,0.15);
 }
 .fade-in-slide-up {
     opacity: 0;
@@ -173,7 +171,6 @@ a.button:hover {
 
 <section class="favorite-games fade-in-slide-up delay-2 select-none">
     <h3 class="text-4xl font-extrabold mb-8">Favorite games</h3>
-    <img src="https://static.wikia.nocookie.net/tds/images/V1.33Thumbnail.png" alt="TDS" />
     <p>
         I like <span>TDS on Roblox</span> — it’s a grindy ass tower defense game that I've been playing for like 5 years
     </p>
@@ -182,7 +179,6 @@ a.button:hover {
             Play TDS on Roblox
         </a>
     </div>
-    <img src="https://static.wikia.nocookie.net/clashroyale/images/1/15/How_to_Evolve_Your_Dragon_Loading_Screen.png" alt="Clash Royale" />
     <p>
         I also like <span>Clash Royale</span> — a shitty card game with p2w players that make me want to slice my dick off
     </p>
