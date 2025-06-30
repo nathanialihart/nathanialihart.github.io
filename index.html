@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en" x-data="{ darkMode: true, loading: true, animeList: [] }" x-init="
     darkMode = JSON.parse(localStorage.getItem('darkMode') ?? 'true');
     $watch('darkMode', value => {
@@ -229,6 +229,16 @@
         loading="lazy"
       />
       HTML
+    </div>
+    <div class="language-card flex flex-col items-center rounded-3xl px-10 py-8 w-40 shadow-lg">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/9/99/Unofficial_JavaScript_logo_2.svg"
+        alt="JavaScript Logo"
+        class="language-logo"
+        decoding="async"
+        loading="lazy"
+      />
+      JavaScript
     </div>
   </div>
 </section>
